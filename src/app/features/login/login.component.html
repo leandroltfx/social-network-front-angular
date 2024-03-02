@@ -1,14 +1,14 @@
-<main style="width: 30%; margin: 0 auto; padding-top: 40px;">
+<main class="fm-w-30 fm-center fm-ptop-5">
     <mat-card>
-        <mat-card-title style="text-align: center; padding-bottom: 40px;">Free Market</mat-card-title>
+        <mat-card-title class="fm-txt-center fm-pbottom-1">Free Market</mat-card-title>
         <mat-card-content>
             <form [formGroup]="loginForm" (ngSubmit)="login()">
-                <mat-form-field appearance="fill" style="width: 100%;">
+                <mat-form-field appearance="fill" class="fm-w-100">
                     <mat-label>Email</mat-label>
                     <input matInput formControlName="email">
                     <mat-error *ngIf="loginForm.get('email')?.hasError('required')">Informe o seu email</mat-error>
                 </mat-form-field>
-                <mat-form-field appearance="fill" style="width: 100%;">
+                <mat-form-field appearance="fill" class="fm-w-100">
                     <mat-label>Senha</mat-label>
                     <input matInput formControlName="password" [type]="showPassword ? 'text' : 'password'">
                     <button mat-icon-button matSuffix type="button" (click)="showPassword = !showPassword">
@@ -16,7 +16,7 @@
                     </button>
                     <mat-error *ngIf="loginForm.get('password')?.hasError('required')">Informe a sua senha</mat-error>
                 </mat-form-field>
-                <div style="text-align: end;">
+                <div class="fm-txt-right">
                     <button mat-raised-button color="primary" type="submit">Login</button>
                 </div>
             </form>
