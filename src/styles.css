@@ -9,6 +9,11 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 .fm-txt-center { text-align: center; }
 .fm-txt-right { text-align: right; }
 
+.fm-flex { display: flex; }
+.fm-jc-space-between { justify-content: space-between; }
+
+.fm-items-center { align-items: center; }
+
 .fm-w-5 { width: 5%; }
 .fm-w-10 { width: 10%; }
 .fm-w-15 { width: 15%; }

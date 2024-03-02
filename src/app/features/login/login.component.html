@@ -16,7 +16,8 @@
                     </button>
                     <mat-error *ngIf="loginForm.get('password')?.hasError('required')">Informe a sua senha</mat-error>
                 </mat-form-field>
-                <div class="fm-txt-right">
+                <div class="fm-flex fm-jc-space-between fm-items-center">
+                    <a [routerLink]="['/user-registration']">Cadastre-se</a>
                     <button mat-raised-button color="primary" type="submit">Login</button>
                 </div>
             </form>
