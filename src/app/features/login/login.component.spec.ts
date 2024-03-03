@@ -1,6 +1,7 @@
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ReactiveFormsModule } from '@angular/forms';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { RouterTestingModule } from '@angular/router/testing';
 
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
@@ -20,6 +21,7 @@ describe('LoginComponent', () => {
       imports: [
         BrowserAnimationsModule,
         ReactiveFormsModule,
+        RouterTestingModule,
 
         MatFormFieldModule,
         MatInputModule,
@@ -44,26 +46,26 @@ describe('LoginComponent', () => {
     const spyLog = spyOn(console, 'log');
 
     component.loginForm = component.buildLoginForm();
-    component.loginForm.controls['email'].setValue('email@email.com');
-    component.loginForm.controls['password'].setValue('password123');
+    component.loginForm.controls['userEmail'].setValue('userEmail@userEmail.com');
+    component.loginForm.controls['userPassword'].setValue('password123');
     component.login();
     expect(spyLog).toHaveBeenCalled();
   });
 
-  it('login - error email', () => {
+  it('login - error userEmail', () => {
 
     component.loginForm = component.buildLoginForm();
-    component.loginForm.controls['email'].setValue('');
-    component.loginForm.controls['password'].setValue('password123');
+    component.loginForm.controls['userEmail'].setValue('');
+    component.loginForm.controls['userPassword'].setValue('password123');
     component.login();
     expect(component.loginForm.invalid).toBeTrue();
   });
 
-  it('login - error password', () => {
+  it('login - error userPassword', () => {
 
     component.loginForm = component.buildLoginForm();
-    component.loginForm.controls['email'].setValue('email@email.com');
-    component.loginForm.controls['password'].setValue('');
+    component.loginForm.controls['userEmail'].setValue('userEmail@userEmail.com');
+    component.loginForm.controls['userPassword'].setValue('');
     component.login();
     expect(component.loginForm.invalid).toBeTrue();
   });
@@ -71,8 +73,8 @@ describe('LoginComponent', () => {
   it('login - both fields', () => {
 
     component.loginForm = component.buildLoginForm();
-    component.loginForm.controls['email'].setValue('');
-    component.loginForm.controls['password'].setValue('');
+    component.loginForm.controls['userEmail'].setValue('');
+    component.loginForm.controls['userPassword'].setValue('');
     component.login();
     expect(component.loginForm.invalid).toBeTrue();
   });
