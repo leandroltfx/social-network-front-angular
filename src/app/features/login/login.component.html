@@ -1,14 +1,14 @@
-<main class="fm-w-30 fm-center fm-ptop-5">
+<main class="sn-w-30 sn-center sn-ptop-5">
     <mat-card>
-        <mat-card-title class="fm-txt-center fm-pbottom-1">Free Market</mat-card-title>
+        <mat-card-title class="sn-txt-center sn-pbottom-1">Free Market</mat-card-title>
         <mat-card-content>
             <form [formGroup]="loginForm" (ngSubmit)="login()">
-                <mat-form-field appearance="fill" class="fm-w-100">
+                <mat-form-field appearance="fill" class="sn-w-100">
                     <mat-label>Email</mat-label>
                     <input matInput formControlName="userEmail" type="email">
                     <mat-error *ngIf="loginForm.get('userEmail')?.hasError('required')">Informe o seu email</mat-error>
                 </mat-form-field>
-                <mat-form-field appearance="fill" class="fm-w-100">
+                <mat-form-field appearance="fill" class="sn-w-100">
                     <mat-label>Senha</mat-label>
                     <input matInput formControlName="userPassword" [type]="showPassword ? 'text' : 'password'">
                     <button mat-icon-button matSuffix type="button" (click)="showPassword = !showPassword">
@@ -16,7 +16,7 @@
                     </button>
                     <mat-error *ngIf="loginForm.get('userPassword')?.hasError('required')">Informe a sua senha</mat-error>
                 </mat-form-field>
-                <div class="fm-flex fm-jc-space-between fm-items-center">
+                <div class="sn-flex sn-jc-space-between sn-items-center">
                     <a [routerLink]="['/user-registration']">Cadastre-se</a>
                     <button mat-raised-button color="primary" type="submit">Login</button>
                 </div>

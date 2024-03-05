@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
-  selector: 'fm-login',
+  selector: 'sn-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
 })

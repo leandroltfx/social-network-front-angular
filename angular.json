@@ -3,17 +3,17 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "free-market-front-angular": {
+    "social-network-front-angular": {
       "projectType": "application",
       "schematics": {},
       "root": "",
       "sourceRoot": "src",
-      "prefix": "fm",
+      "prefix": "sn",
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/free-market-front-angular",
+            "outputPath": "dist/social-network-front-angular",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
@@ -65,10 +65,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "free-market-front-angular:build:production"
+              "browserTarget": "social-network-front-angular:build:production"
             },
             "development": {
-              "browserTarget": "free-market-front-angular:build:development"
+              "browserTarget": "social-network-front-angular:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -76,7 +76,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "free-market-front-angular:build"
+            "browserTarget": "social-network-front-angular:build"
           }
         },
         "test": {
