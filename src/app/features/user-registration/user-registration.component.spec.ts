@@ -41,11 +41,12 @@ describe('UserRegistrationComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('login', () => {
+  it('registerUser', () => {
 
     const spyLog = spyOn(console, 'log');
 
     component.userRegistrationForm = component.buildUserRegistrationForm();
+    component.userRegistrationForm.controls['userSocialName'].setValue('name name name');
     component.userRegistrationForm.controls['userName'].setValue('name');
     component.userRegistrationForm.controls['userEmail'].setValue('email@email.com');
     component.userRegistrationForm.controls['userPassword'].setValue('password123');
@@ -54,58 +55,68 @@ describe('UserRegistrationComponent', () => {
     expect(spyLog).toHaveBeenCalled();
   });
 
-  it('login - error userName', () => {
+  it('registerUser - error required userSocialName', () => {
 
     component.userRegistrationForm = component.buildUserRegistrationForm();
+    component.userRegistrationForm.controls['userSocialName'].setValue('');
+    component.userRegistrationForm.controls['userName'].setValue('name');
+    component.userRegistrationForm.controls['userEmail'].setValue('email@email.com');
+    component.userRegistrationForm.controls['userPassword'].setValue('password123');
+    component.userRegistrationForm.controls['userConfirmPassword'].setValue('password123');
+    component.registerUser();
+    expect(component.userRegistrationForm.controls['userSocialName'].getError('required')).toBeTrue();
+    expect(component.userRegistrationForm.invalid).toBeTrue();
+  });
+
+  it('registerUser - error required userSocialName', () => {
+
+    component.userRegistrationForm = component.buildUserRegistrationForm();
+    component.userRegistrationForm.controls['userSocialName'].setValue('name name name');
     component.userRegistrationForm.controls['userName'].setValue('');
     component.userRegistrationForm.controls['userEmail'].setValue('email@email.com');
     component.userRegistrationForm.controls['userPassword'].setValue('password123');
     component.userRegistrationForm.controls['userConfirmPassword'].setValue('password123');
     component.registerUser();
+    expect(component.userRegistrationForm.controls['userName'].getError('required')).toBeTrue();
     expect(component.userRegistrationForm.invalid).toBeTrue();
   });
 
-  it('login - error userEmail', () => {
+  it('registerUser - error required userEmail', () => {
 
     component.userRegistrationForm = component.buildUserRegistrationForm();
+    component.userRegistrationForm.controls['userSocialName'].setValue('name name name');
     component.userRegistrationForm.controls['userName'].setValue('name');
     component.userRegistrationForm.controls['userEmail'].setValue('');
     component.userRegistrationForm.controls['userPassword'].setValue('password123');
     component.userRegistrationForm.controls['userConfirmPassword'].setValue('password123');
     component.registerUser();
+    expect(component.userRegistrationForm.controls['userEmail'].getError('required')).toBeTrue();
     expect(component.userRegistrationForm.invalid).toBeTrue();
   });
 
-  it('login - error userPassword', () => {
+  it('registerUser - error required userPassword', () => {
 
     component.userRegistrationForm = component.buildUserRegistrationForm();
+    component.userRegistrationForm.controls['userSocialName'].setValue('name name name');
     component.userRegistrationForm.controls['userName'].setValue('name');
     component.userRegistrationForm.controls['userEmail'].setValue('email@email.com');
     component.userRegistrationForm.controls['userPassword'].setValue('');
     component.userRegistrationForm.controls['userConfirmPassword'].setValue('password123');
     component.registerUser();
+    expect(component.userRegistrationForm.controls['userPassword'].getError('required')).toBeTrue();
     expect(component.userRegistrationForm.invalid).toBeTrue();
   });
 
-  it('login - error userConfirmPassword', () => {
+  it('registerUser - error required userConfirmPassword', () => {
 
     component.userRegistrationForm = component.buildUserRegistrationForm();
+    component.userRegistrationForm.controls['userSocialName'].setValue('name name name');
     component.userRegistrationForm.controls['userName'].setValue('name');
     component.userRegistrationForm.controls['userEmail'].setValue('email@email.com');
     component.userRegistrationForm.controls['userPassword'].setValue('password123');
     component.userRegistrationForm.controls['userConfirmPassword'].setValue('');
     component.registerUser();
-    expect(component.userRegistrationForm.invalid).toBeTrue();
-  });
-
-  it('login - all fields', () => {
-
-    component.userRegistrationForm = component.buildUserRegistrationForm();
-    component.userRegistrationForm.controls['userName'].setValue('');
-    component.userRegistrationForm.controls['userEmail'].setValue('');
-    component.userRegistrationForm.controls['userPassword'].setValue('');
-    component.userRegistrationForm.controls['userConfirmPassword'].setValue('');
-    component.registerUser();
+    expect(component.userRegistrationForm.controls['userConfirmPassword'].getError('required')).toBeTrue();
     expect(component.userRegistrationForm.invalid).toBeTrue();
   });
 });

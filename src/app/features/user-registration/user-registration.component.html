@@ -3,31 +3,67 @@
         <mat-card-title class="sn-txt-center sn-pbottom-1">Cadastrar usuário</mat-card-title>
         <mat-card-content>
             <form [formGroup]="userRegistrationForm" (ngSubmit)="registerUser()">
-                <mat-form-field appearance="fill" class="sn-w-100">
+                <mat-form-field appearance="fill" class="sn-w-100 sn-pbottom-1">
                     <mat-label>Nome</mat-label>
-                    <input matInput formControlName="userName">
-                    <mat-error *ngIf="userRegistrationForm.get('userName')?.hasError('required')">Informe o seu nome</mat-error>
+                    <input matInput formControlName="userSocialName">
+                    <mat-error *ngIf="userRegistrationForm.get('userSocialName')?.hasError('required')">Informe o seu nome</mat-error>
+                    <mat-error
+                        *ngIf="userRegistrationForm.get('userSocialName')?.hasError('minlength') && !userRegistrationForm.get('userSocialName')?.hasError('pattern')">O
+                        nome deve ter no mínimo 3 caracteres</mat-error>
+                    <mat-error
+                        *ngIf="userRegistrationForm.get('userSocialName')?.hasError('maxlength') && !userRegistrationForm.get('userSocialName')?.hasError('pattern')">O
+                        nome não pode ultrapassar 100 caracteres</mat-error>
                 </mat-form-field>
-                <mat-form-field appearance="fill" class="sn-w-100">
+                <mat-form-field appearance="fill" class="sn-w-100 sn-pbottom-1">
+                    <mat-label>Nome de usuário</mat-label>
+                    <input matInput formControlName="userName">
+                    <mat-error *ngIf="userRegistrationForm.get('userName')?.hasError('required')">Informe o seu
+                        nome de usuário</mat-error>
+                    <mat-error *ngIf="userRegistrationForm.get('userName')?.hasError('pattern')">O nome de usuário não
+                        pode conter espaços, caracteres especiais e deve iniciar com letra</mat-error>
+                    <mat-error
+                        *ngIf="userRegistrationForm.get('userName')?.hasError('minlength') && !userRegistrationForm.get('userName')?.hasError('pattern')">O
+                        nome de usuário deve ter no mínimo 3 caracteres</mat-error>
+                    <mat-error
+                        *ngIf="userRegistrationForm.get('userName')?.hasError('maxlength') && !userRegistrationForm.get('userName')?.hasError('pattern')">O
+                        nome de usuário não pode ultrapassar 30 caracteres</mat-error>
+                </mat-form-field>
+                <mat-form-field appearance="fill" class="sn-w-100 sn-pbottom-1">
                     <mat-label>Email</mat-label>
                     <input matInput formControlName="userEmail" type="email">
-                    <mat-error *ngIf="userRegistrationForm.get('userEmail')?.hasError('required')">Informe o seu email</mat-error>
+                    <mat-error *ngIf="userRegistrationForm.get('userEmail')?.hasError('required')">Informe o seu
+                        email</mat-error>
+                    <mat-error *ngIf="userRegistrationForm.get('userEmail')?.hasError('pattern')">Email
+                        inválido</mat-error>
+                    <mat-error
+                        *ngIf="userRegistrationForm.get('userEmail')?.hasError('maxlength') && !userRegistrationForm.get('userEmail')?.hasError('pattern')">O
+                        email não deve ultrapassar 100 caracteres</mat-error>
                 </mat-form-field>
-                <mat-form-field appearance="fill" class="sn-w-100">
+                <mat-form-field appearance="fill" class="sn-w-100 sn-pbottom-1">
                     <mat-label>Senha</mat-label>
-                    <input matInput formControlName="userPassword" [type]="showPassword ? 'text' : 'password'">
+                    <input matInput formControlName="userPassword" [type]="showPassword ? 'text' : 'password'"
+                        (ngModelChange)="updateValidatorConfirmPassword()">
                     <button mat-icon-button matSuffix type="button" (click)="showPassword = !showPassword">
                         <mat-icon>{{showPassword ? 'visibility_off' : 'visibility'}}</mat-icon>
                     </button>
-                    <mat-error *ngIf="userRegistrationForm.get('userPassword')?.hasError('required')">Informe a sua senha</mat-error>
+                    <mat-error *ngIf="userRegistrationForm.get('userPassword')?.hasError('required')">Informe a sua
+                        senha</mat-error>
+                    <mat-error *ngIf="userRegistrationForm.get('userPassword')?.hasError('pattern')">
+                        A senha deve ter no mínimo: uma letra, um número e oito caracteres
+                    </mat-error>
                 </mat-form-field>
-                <mat-form-field appearance="fill" class="sn-w-100">
+                <mat-form-field appearance="fill" class="sn-w-100 sn-pbottom-1">
                     <mat-label>Confirme a senha</mat-label>
-                    <input matInput formControlName="userConfirmPassword" [type]="showConfirmPassword ? 'text' : 'password'">
-                    <button mat-icon-button matSuffix type="button" (click)="showConfirmPassword = !showConfirmPassword">
+                    <input matInput formControlName="userConfirmPassword"
+                        [type]="showConfirmPassword ? 'text' : 'password'">
+                    <button mat-icon-button matSuffix type="button"
+                        (click)="showConfirmPassword = !showConfirmPassword">
                         <mat-icon>{{showConfirmPassword ? 'visibility_off' : 'visibility'}}</mat-icon>
                     </button>
-                    <mat-error *ngIf="userRegistrationForm.get('userConfirmPassword')?.hasError('required')">Confirme a sua senha</mat-error>
+                    <mat-error *ngIf="userRegistrationForm.get('userConfirmPassword')?.hasError('required')">Confirme a
+                        sua senha</mat-error>
+                    <mat-error *ngIf="userRegistrationForm.get('userConfirmPassword')?.hasError('confirm')">Senhas
+                        inconsistentes</mat-error>
                 </mat-form-field>
                 <button mat-raised-button color="primary" type="submit" class="sn-w-100 sn-mtop-1">Cadastrar</button>
                 <div class="sn-mtop-1 sn-txt-center">

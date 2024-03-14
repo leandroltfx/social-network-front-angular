@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'sn-user-registration',
@@ -11,6 +11,9 @@ export class UserRegistrationComponent implements OnInit {
   userRegistrationForm!: FormGroup;
   showPassword: boolean = false;
   showConfirmPassword: boolean = false;
+  patternUserName: RegExp = /^[a-zA-Z]\w*$/;
+  patternUserEmail: RegExp = /^[a-z0-9.]+@[a-z0-9]+\.[a-z]+(\.[a-z]+)?$/i;
+  patternUserPassword: RegExp = /^(?=.*\d)(?=.*[a-zA-Z]).{8,}$/;
 
   constructor(private formBuilder: FormBuilder) { }
 
@@ -20,12 +23,26 @@ export class UserRegistrationComponent implements OnInit {
 
   buildUserRegistrationForm(): FormGroup {
     return this.formBuilder.group({
-      userName: [null, [Validators.required]],
-      userEmail: [null, [Validators.required]],
-      userPassword: [null, [Validators.required]],
-      userConfirmPassword: [null, [Validators.required]],
+      userSocialName: [null, [Validators.required, Validators.minLength(3), Validators.maxLength(100)]],
+      userName: [null, [Validators.required, Validators.pattern(this.patternUserName), Validators.minLength(3), Validators.maxLength(30)]],
+      userEmail: [null, [Validators.required, Validators.pattern(this.patternUserEmail)]],
+      userPassword: [null, [Validators.required, Validators.pattern(this.patternUserPassword), Validators.maxLength(100)]],
+      userConfirmPassword: [null, [Validators.required, this.validatorConfirmPassword]],
     });
   }
+
+  updateValidatorConfirmPassword(): void {
+    Promise.resolve().then(() => this.userRegistrationForm.controls['userConfirmPassword'].updateValueAndValidity());
+  }
+
+  validatorConfirmPassword = (control: FormControl): { [s: string]: boolean } => {
+    if (!control.value) {
+      return { required: true };
+    } else if (control.value !== this.userRegistrationForm.controls['userPassword'].value) {
+      return { confirm: true, error: true };
+    }
+    return {};
+  };
 
   registerUser(): void {
     if (this.userRegistrationForm.valid) {
