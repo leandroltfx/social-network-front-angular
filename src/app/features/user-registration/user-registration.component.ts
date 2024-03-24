@@ -1,6 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 
+import { UserRegistrationService } from './user-registration.service';
+import { RegisterUserRequest } from 'src/app/shared/models/request/register-user-request.model';
+import { MessageService } from 'src/app/shared/services/message/message.service';
+
 @Component({
   selector: 'sn-user-registration',
   templateUrl: './user-registration.component.html',
@@ -15,7 +19,11 @@ export class UserRegistrationComponent implements OnInit {
   patternEmail: RegExp = /^[a-z0-9.]+@[a-z0-9]+\.[a-z]+(\.[a-z]+)?$/i;
   patternPassword: RegExp = /^(?=.*\d)(?=.*[a-zA-Z]).{8,}$/;
 
-  constructor(private formBuilder: FormBuilder) { }
+  constructor(
+    private formBuilder: FormBuilder,
+    private userRegistrationService: UserRegistrationService,
+    private messageService: MessageService,
+  ) { }
 
   ngOnInit(): void {
     this.userRegistrationForm = this.buildUserRegistrationForm();
@@ -46,7 +54,21 @@ export class UserRegistrationComponent implements OnInit {
 
   registerUser(): void {
     if (this.userRegistrationForm.valid) {
-      console.log('registerUser');
+      const registerUserRequest = new RegisterUserRequest(
+        this.userRegistrationForm.controls['socialName'].value,
+        this.userRegistrationForm.controls['userName'].value,
+        this.userRegistrationForm.controls['email'].value,
+        this.userRegistrationForm.controls['password'].value,
+      );
+      this.userRegistrationService.registerUser(registerUserRequest)
+        .subscribe(
+          resultRegisterUser => {
+            this.messageService.showMessage(resultRegisterUser.message, 'success');
+          },
+          errorRegisterUser => {
+            this.messageService.showMessage(errorRegisterUser.error.message, 'error');
+          }
+        );
     } else {
       Object.values(this.userRegistrationForm.controls).forEach(control => {
         if (control.invalid) {
