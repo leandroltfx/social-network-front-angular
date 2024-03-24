@@ -1,6 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 
+import { UserRegistrationService } from './user-registration.service';
+import { RegisterUserRequest } from 'src/app/shared/models/request/register-user-request.model';
+import { MessageService } from 'src/app/shared/services/message/message.service';
+
 @Component({
   selector: 'sn-user-registration',
   templateUrl: './user-registration.component.html',
@@ -12,10 +16,14 @@ export class UserRegistrationComponent implements OnInit {
   showPassword: boolean = false;
   showConfirmPassword: boolean = false;
   patternUserName: RegExp = /^[a-zA-Z]\w*$/;
-  patternUserEmail: RegExp = /^[a-z0-9.]+@[a-z0-9]+\.[a-z]+(\.[a-z]+)?$/i;
-  patternUserPassword: RegExp = /^(?=.*\d)(?=.*[a-zA-Z]).{8,}$/;
+  patternEmail: RegExp = /^[a-z0-9.]+@[a-z0-9]+\.[a-z]+(\.[a-z]+)?$/i;
+  patternPassword: RegExp = /^(?=.*\d)(?=.*[a-zA-Z]).{8,}$/;
 
-  constructor(private formBuilder: FormBuilder) { }
+  constructor(
+    private formBuilder: FormBuilder,
+    private userRegistrationService: UserRegistrationService,
+    private messageService: MessageService,
+  ) { }
 
   ngOnInit(): void {
     this.userRegistrationForm = this.buildUserRegistrationForm();
@@ -23,22 +31,22 @@ export class UserRegistrationComponent implements OnInit {
 
   buildUserRegistrationForm(): FormGroup {
     return this.formBuilder.group({
-      userSocialName: [null, [Validators.required, Validators.minLength(3), Validators.maxLength(100)]],
+      socialName: [null, [Validators.required, Validators.minLength(3), Validators.maxLength(100)]],
       userName: [null, [Validators.required, Validators.pattern(this.patternUserName), Validators.minLength(3), Validators.maxLength(30)]],
-      userEmail: [null, [Validators.required, Validators.pattern(this.patternUserEmail)]],
-      userPassword: [null, [Validators.required, Validators.pattern(this.patternUserPassword), Validators.maxLength(100)]],
-      userConfirmPassword: [null, [Validators.required, this.validatorConfirmPassword]],
+      email: [null, [Validators.required, Validators.pattern(this.patternEmail)]],
+      password: [null, [Validators.required, Validators.pattern(this.patternPassword), Validators.maxLength(100)]],
+      confirmPassword: [null, [Validators.required, this.validatorConfirmPassword]],
     });
   }
 
   updateValidatorConfirmPassword(): void {
-    Promise.resolve().then(() => this.userRegistrationForm.controls['userConfirmPassword'].updateValueAndValidity());
+    Promise.resolve().then(() => this.userRegistrationForm.controls['confirmPassword'].updateValueAndValidity());
   }
 
   validatorConfirmPassword = (control: FormControl): { [s: string]: boolean } => {
     if (!control.value) {
       return { required: true };
-    } else if (control.value !== this.userRegistrationForm.controls['userPassword'].value) {
+    } else if (control.value !== this.userRegistrationForm.controls['password'].value) {
       return { confirm: true, error: true };
     }
     return {};
@@ -46,7 +54,21 @@ export class UserRegistrationComponent implements OnInit {
 
   registerUser(): void {
     if (this.userRegistrationForm.valid) {
-      console.log('registerUser');
+      const registerUserRequest = new RegisterUserRequest(
+        this.userRegistrationForm.controls['socialName'].value,
+        this.userRegistrationForm.controls['userName'].value,
+        this.userRegistrationForm.controls['email'].value,
+        this.userRegistrationForm.controls['password'].value,
+      );
+      this.userRegistrationService.registerUser(registerUserRequest)
+        .subscribe(
+          resultRegisterUser => {
+            this.messageService.showMessage(resultRegisterUser.message, 'success');
+          },
+          errorRegisterUser => {
+            this.messageService.showMessage(errorRegisterUser.error.message, 'error');
+          }
+        );
     } else {
       Object.values(this.userRegistrationForm.controls).forEach(control => {
         if (control.invalid) {

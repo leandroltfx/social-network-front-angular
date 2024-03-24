@@ -5,16 +5,16 @@
             <form [formGroup]="loginForm" (ngSubmit)="login()">
                 <mat-form-field appearance="fill" class="sn-w-100">
                     <mat-label>Email</mat-label>
-                    <input matInput formControlName="userEmail" type="email">
-                    <mat-error *ngIf="loginForm.get('userEmail')?.hasError('required')">Informe o seu email</mat-error>
+                    <input matInput formControlName="email" type="email">
+                    <mat-error *ngIf="loginForm.get('email')?.hasError('required')">Informe o seu email</mat-error>
                 </mat-form-field>
                 <mat-form-field appearance="fill" class="sn-w-100">
                     <mat-label>Senha</mat-label>
-                    <input matInput formControlName="userPassword" [type]="showPassword ? 'text' : 'password'">
+                    <input matInput formControlName="password" [type]="showPassword ? 'text' : 'password'">
                     <button mat-icon-button matSuffix type="button" (click)="showPassword = !showPassword">
                         <mat-icon>{{showPassword ? 'visibility_off' : 'visibility'}}</mat-icon>
                     </button>
-                    <mat-error *ngIf="loginForm.get('userPassword')?.hasError('required')">Informe a sua senha</mat-error>
+                    <mat-error *ngIf="loginForm.get('password')?.hasError('required')">Informe a sua senha</mat-error>
                 </mat-form-field>
                 <div class="sn-flex sn-jc-space-between sn-items-center">
                     <a [routerLink]="['/user-registration']">Cadastre-se</a>

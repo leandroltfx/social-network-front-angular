@@ -3,6 +3,16 @@
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
+.snackbar-container-success {
+    background-color: #008000;
+    color: #fff;
+}
+
+.snackbar-container-error {
+    background-color: #ff0000;
+    color: #fff;
+}
+
 .sn-center { margin: 0 auto !important; }
 
 .sn-txt-left { text-align: left !important; }
