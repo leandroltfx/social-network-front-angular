@@ -3,9 +3,9 @@ import { Injectable } from '@angular/core';
 
 import { Observable } from 'rxjs';
 
+import { environment } from 'src/environments/environment';
 import { RegisterUserRequest } from 'src/app/shared/models/request/register-user-request.model';
 import { RegisterUserReponse } from 'src/app/shared/models/response/register-user-response.model';
-import { environment } from 'src/environments/environment';
 
 @Injectable()
 export class UserRegistrationService {

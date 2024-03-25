@@ -3,9 +3,9 @@ import { Injectable } from '@angular/core';
 
 import { Observable } from 'rxjs';
 
+import { environment } from 'src/environments/environment';
 import { LoginRequest } from 'src/app/shared/models/request/login-request.model';
 import { LoginResponse } from 'src/app/shared/models/response/login-response.model';
-import { environment } from 'src/environments/environment';
 
 @Injectable()
 export class LoginService {

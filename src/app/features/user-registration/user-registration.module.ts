@@ -23,14 +23,13 @@ import { UserRegistrationService } from './user-registration.service';
     ReactiveFormsModule,
     HttpClientModule,
 
-    SharedModule,
-
     MatFormFieldModule,
     MatInputModule,
     MatCardModule,
     MatButtonModule,
     MatIconModule,
 
+    SharedModule,
     UserRegistrationRoutingModule
   ],
   providers: [

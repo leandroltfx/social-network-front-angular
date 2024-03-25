@@ -14,7 +14,7 @@ export class MessageService {
   private durationMessage: number = 5 * 1000;
 
   constructor(
-    private snackBar: MatSnackBar,
+    private readonly snackBar: MatSnackBar,
   ) { }
 
   showMessage(message: string, typeMessage: TypeMessage, labelAction: string = '') {

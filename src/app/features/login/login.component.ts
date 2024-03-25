@@ -1,14 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
-import { LoginRequest } from 'src/app/shared/models/request/login-request.model';
-import { LoginService } from './login.service';
 import { MessageService } from 'src/app/shared/services/message/message.service';
+import { LoginService } from './login.service';
+import { LoginRequest } from 'src/app/shared/models/request/login-request.model';
 
 @Component({
   selector: 'sn-login',
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
 
@@ -16,9 +15,9 @@ export class LoginComponent implements OnInit {
   showPassword: boolean = false;
 
   constructor(
-    private formBuilder: FormBuilder,
-    private loginService: LoginService,
-    private messageService: MessageService
+    private readonly formBuilder: FormBuilder,
+    private readonly loginService: LoginService,
+    private readonly messageService: MessageService,
   ) { }
 
   ngOnInit(): void {
@@ -40,14 +39,14 @@ export class LoginComponent implements OnInit {
       );
       this.loginService.login(
         loginRequest
-      ).subscribe(
-        resultLogin => {
+      ).subscribe({
+        next: resultLogin => {
           this.messageService.showMessage(resultLogin.message, 'success');
         },
-        errorLogin => {
+        error: errorLogin => {
           this.messageService.showMessage(errorLogin.error.message, 'error');
         }
-      );
+      });
     } else {
       Object.values(this.loginForm.controls).forEach(control => {
         if (control.invalid) {

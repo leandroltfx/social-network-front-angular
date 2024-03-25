@@ -1,15 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 
 import { UserRegistrationService } from './user-registration.service';
-import { RegisterUserRequest } from 'src/app/shared/models/request/register-user-request.model';
 import { MessageService } from 'src/app/shared/services/message/message.service';
-import { Router } from '@angular/router';
+import { RegisterUserRequest } from 'src/app/shared/models/request/register-user-request.model';
 
 @Component({
   selector: 'sn-user-registration',
   templateUrl: './user-registration.component.html',
-  styleUrls: ['./user-registration.component.css']
 })
 export class UserRegistrationComponent implements OnInit {
 
@@ -21,10 +20,10 @@ export class UserRegistrationComponent implements OnInit {
   patternPassword: RegExp = /^(?=.*\d)(?=.*[a-zA-Z]).{8,}$/;
 
   constructor(
-    private formBuilder: FormBuilder,
-    private userRegistrationService: UserRegistrationService,
-    private messageService: MessageService,
-    private router: Router
+    private readonly formBuilder: FormBuilder,
+    private readonly userRegistrationService: UserRegistrationService,
+    private readonly messageService: MessageService,
+    private readonly router: Router,
   ) { }
 
   ngOnInit(): void {
@@ -64,12 +63,14 @@ export class UserRegistrationComponent implements OnInit {
       );
       this.userRegistrationService.registerUser(registerUserRequest)
         .subscribe(
-          resultRegisterUser => {
-            this.messageService.showMessage(resultRegisterUser.message, 'success');
-            this.router.navigate(['/login']);
-          },
-          errorRegisterUser => {
-            this.messageService.showMessage(errorRegisterUser.error.message, 'error');
+          {
+            next: resultRegisterUser => {
+              this.messageService.showMessage(resultRegisterUser.message, 'success');
+              this.router.navigate(['/login']);
+            },
+            error: errorRegisterUser => {
+              this.messageService.showMessage(errorRegisterUser.error.message, 'error');
+            }
           }
         );
     } else {
