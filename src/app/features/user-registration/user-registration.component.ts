@@ -4,6 +4,7 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import { UserRegistrationService } from './user-registration.service';
 import { RegisterUserRequest } from 'src/app/shared/models/request/register-user-request.model';
 import { MessageService } from 'src/app/shared/services/message/message.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'sn-user-registration',
@@ -23,6 +24,7 @@ export class UserRegistrationComponent implements OnInit {
     private formBuilder: FormBuilder,
     private userRegistrationService: UserRegistrationService,
     private messageService: MessageService,
+    private router: Router
   ) { }
 
   ngOnInit(): void {
@@ -64,6 +66,7 @@ export class UserRegistrationComponent implements OnInit {
         .subscribe(
           resultRegisterUser => {
             this.messageService.showMessage(resultRegisterUser.message, 'success');
+            this.router.navigate(['/login']);
           },
           errorRegisterUser => {
             this.messageService.showMessage(errorRegisterUser.error.message, 'error');
