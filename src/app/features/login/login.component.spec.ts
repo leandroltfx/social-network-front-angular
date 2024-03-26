@@ -3,6 +3,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { Router } from '@angular/router';
 
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
@@ -17,17 +18,21 @@ import { LoginService } from './login.service';
 import { LoginResponse } from 'src/app/shared/models/response/login-response.model';
 import { MessageService } from 'src/app/core/services/message/message.service';
 import { CustomError } from 'src/app/shared/testing/error/custom-error.model';
+import { AuthService } from 'src/app/core/services/auth/auth.service';
 
 describe('LoginComponent', () => {
   let component: LoginComponent;
   let fixture: ComponentFixture<LoginComponent>;
   let loginService: jasmine.SpyObj<LoginService>;
   let messageService: jasmine.SpyObj<MessageService>;
+  let authService: jasmine.SpyObj<AuthService>;
+  let router: Router;
 
   beforeEach(async () => {
 
     loginService = jasmine.createSpyObj(['login']);
     messageService = jasmine.createSpyObj(['showMessage']);
+    authService = jasmine.createSpyObj(['']);
 
     await TestBed.configureTestingModule({
       declarations: [LoginComponent],
@@ -46,12 +51,14 @@ describe('LoginComponent', () => {
       providers: [
         { provide: LoginService, useValue: loginService },
         { provide: MessageService, useValue: messageService },
+        { provide: AuthService, useValue: authService }
       ]
     })
       .compileComponents();
 
     fixture = TestBed.createComponent(LoginComponent);
     component = fixture.componentInstance;
+    router = TestBed.inject(Router);
     fixture.detectChanges();
   });
 
@@ -60,6 +67,8 @@ describe('LoginComponent', () => {
   });
 
   it('login - success', () => {
+
+    const spyNavigate = spyOn(router, 'navigate');
 
     loginService.login.and.returnValue(
       of(
@@ -84,6 +93,7 @@ describe('LoginComponent', () => {
     expect(loginService.login).toHaveBeenCalled();
     expect(messageService.showMessage).toHaveBeenCalled();
     expect(messageService.showMessage).toHaveBeenCalledWith('Login efetuado com sucesso!', 'success');
+    expect(spyNavigate).toHaveBeenCalledWith(['/home']);
   });
 
   it('login - error email', () => {
