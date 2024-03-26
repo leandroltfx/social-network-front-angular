@@ -15,7 +15,7 @@ import { of, throwError } from 'rxjs';
 import { LoginComponent } from './login.component';
 import { LoginService } from './login.service';
 import { LoginResponse } from 'src/app/shared/models/response/login-response.model';
-import { MessageService } from 'src/app/shared/services/message/message.service';
+import { MessageService } from 'src/app/core/services/message/message.service';
 import { CustomError } from 'src/app/shared/testing/error/custom-error.model';
 
 describe('LoginComponent', () => {

@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
-import { TypeMessage } from '../../type/message/type-message';
+import { TypeMessage } from '../../../shared/type/message/type-message';
 
 @Injectable()
 export class MessageService {

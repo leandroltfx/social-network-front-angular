@@ -14,7 +14,7 @@ import { of, throwError } from 'rxjs';
 
 import { UserRegistrationComponent } from './user-registration.component';
 import { UserRegistrationService } from './user-registration.service';
-import { MessageService } from 'src/app/shared/services/message/message.service';
+import { MessageService } from 'src/app/core/services/message/message.service';
 import { RegisterUserReponse } from 'src/app/shared/models/response/register-user-response.model';
 import { CustomError } from 'src/app/shared/testing/error/custom-error.model';
 

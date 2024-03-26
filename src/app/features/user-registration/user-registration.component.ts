@@ -3,7 +3,7 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import { Router } from '@angular/router';
 
 import { UserRegistrationService } from './user-registration.service';
-import { MessageService } from 'src/app/shared/services/message/message.service';
+import { MessageService } from 'src/app/core/services/message/message.service';
 import { RegisterUserRequest } from 'src/app/shared/models/request/register-user-request.model';
 
 @Component({

@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 
-import { MessageService } from 'src/app/shared/services/message/message.service';
+import { MessageService } from 'src/app/core/services/message/message.service';
 import { LoginService } from './login.service';
 import { LoginRequest } from 'src/app/shared/models/request/login-request.model';
 import { AuthService } from 'src/app/core/services/auth/auth.service';
