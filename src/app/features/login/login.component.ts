@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { MessageService } from 'src/app/shared/services/message/message.service';
 import { LoginService } from './login.service';
 import { LoginRequest } from 'src/app/shared/models/request/login-request.model';
+import { AuthService } from 'src/app/core/services/auth/auth.service';
 
 @Component({
   selector: 'sn-login',
@@ -20,6 +21,7 @@ export class LoginComponent implements OnInit {
     private readonly loginService: LoginService,
     private readonly messageService: MessageService,
     private readonly router: Router,
+    private readonly authService: AuthService,
   ) { }
 
   ngOnInit(): void {
@@ -43,6 +45,7 @@ export class LoginComponent implements OnInit {
         loginRequest
       ).subscribe({
         next: resultLogin => {
+          this.authService.loggedUser = resultLogin.data;
           this.messageService.showMessage(resultLogin.message, 'success');
           this.router.navigate(['/home']);
         },
