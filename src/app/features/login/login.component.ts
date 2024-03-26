@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 
 import { MessageService } from 'src/app/shared/services/message/message.service';
 import { LoginService } from './login.service';
@@ -18,6 +19,7 @@ export class LoginComponent implements OnInit {
     private readonly formBuilder: FormBuilder,
     private readonly loginService: LoginService,
     private readonly messageService: MessageService,
+    private readonly router: Router,
   ) { }
 
   ngOnInit(): void {
@@ -42,6 +44,7 @@ export class LoginComponent implements OnInit {
       ).subscribe({
         next: resultLogin => {
           this.messageService.showMessage(resultLogin.message, 'success');
+          this.router.navigate(['/home']);
         },
         error: errorLogin => {
           this.messageService.showMessage(errorLogin?.error?.message, 'error');
