@@ -44,7 +44,7 @@ export class LoginComponent implements OnInit {
           this.messageService.showMessage(resultLogin.message, 'success');
         },
         error: errorLogin => {
-          this.messageService.showMessage(errorLogin.error.message, 'error');
+          this.messageService.showMessage(errorLogin?.error?.message, 'error');
         }
       });
     } else {
