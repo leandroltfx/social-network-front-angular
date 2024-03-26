@@ -11,7 +11,7 @@ import { RegisterUserReponse } from 'src/app/shared/models/response/register-use
 export class UserRegistrationService {
 
   constructor(
-    private httpClient: HttpClient
+    private readonly httpClient: HttpClient
   ) { }
 
   registerUser(

@@ -11,7 +11,7 @@ import { LoginResponse } from 'src/app/shared/models/response/login-response.mod
 export class LoginService {
 
   constructor(
-    private httpClient: HttpClient
+    private readonly httpClient: HttpClient
   ) { }
 
   login(

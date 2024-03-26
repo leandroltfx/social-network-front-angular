@@ -10,7 +10,7 @@ export class ForgotPasswordComponent implements OnInit {
   forgotPasswordForm!: FormGroup;
 
   constructor(
-    private formBuilder: FormBuilder
+    private readonly formBuilder: FormBuilder
   ) { }
 
   ngOnInit(): void {
