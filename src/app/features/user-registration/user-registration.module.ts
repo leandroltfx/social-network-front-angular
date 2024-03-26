@@ -9,7 +9,6 @@ import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 
-import { SharedModule } from 'src/app/shared/shared.module';
 import { UserRegistrationRoutingModule } from './user-registration-routing.module';
 import { UserRegistrationComponent } from './user-registration.component';
 import { UserRegistrationService } from './user-registration.service';
@@ -29,7 +28,6 @@ import { UserRegistrationService } from './user-registration.service';
     MatButtonModule,
     MatIconModule,
 
-    SharedModule,
     UserRegistrationRoutingModule
   ],
   providers: [
