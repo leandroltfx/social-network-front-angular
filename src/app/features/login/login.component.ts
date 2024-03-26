@@ -1,14 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 
-import { LoginRequest } from 'src/app/shared/models/request/login-request.model';
+import { MessageService } from 'src/app/core/services/message/message.service';
 import { LoginService } from './login.service';
-import { MessageService } from 'src/app/shared/services/message/message.service';
+import { LoginRequest } from 'src/app/shared/models/request/login-request.model';
+import { AuthService } from 'src/app/core/services/auth/auth.service';
 
 @Component({
   selector: 'sn-login',
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
 
@@ -16,9 +17,11 @@ export class LoginComponent implements OnInit {
   showPassword: boolean = false;
 
   constructor(
-    private formBuilder: FormBuilder,
-    private loginService: LoginService,
-    private messageService: MessageService
+    private readonly formBuilder: FormBuilder,
+    private readonly loginService: LoginService,
+    private readonly messageService: MessageService,
+    private readonly router: Router,
+    private readonly authService: AuthService,
   ) { }
 
   ngOnInit(): void {
@@ -40,14 +43,16 @@ export class LoginComponent implements OnInit {
       );
       this.loginService.login(
         loginRequest
-      ).subscribe(
-        resultLogin => {
+      ).subscribe({
+        next: resultLogin => {
+          this.authService.loggedUser = resultLogin.data;
           this.messageService.showMessage(resultLogin.message, 'success');
+          this.router.navigate(['/home']);
         },
-        errorLogin => {
-          this.messageService.showMessage(errorLogin.error.message, 'error');
+        error: errorLogin => {
+          this.messageService.showMessage(errorLogin?.error?.message, 'error');
         }
-      );
+      });
     } else {
       Object.values(this.loginForm.controls).forEach(control => {
         if (control.invalid) {

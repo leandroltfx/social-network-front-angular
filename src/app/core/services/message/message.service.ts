@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
-import { TypeMessage } from '../../type/message/type-message';
+import { TypeMessage } from '../../../shared/type/message/type-message';
 
 @Injectable()
 export class MessageService {
@@ -14,7 +14,7 @@ export class MessageService {
   private durationMessage: number = 5 * 1000;
 
   constructor(
-    private snackBar: MatSnackBar,
+    private readonly snackBar: MatSnackBar,
   ) { }
 
   showMessage(message: string, typeMessage: TypeMessage, labelAction: string = '') {

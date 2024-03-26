@@ -9,10 +9,9 @@ import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 
-import { SharedModule } from 'src/app/shared/shared.module';
 import { LoginRoutingModule } from './login-routing.module';
-import { LoginComponent } from './login.component';
 import { LoginService } from './login.service';
+import { LoginComponent } from './login.component';
 
 @NgModule({
   declarations: [
@@ -22,8 +21,6 @@ import { LoginService } from './login.service';
     CommonModule,
     ReactiveFormsModule,
     HttpClientModule,
-
-    SharedModule,
 
     MatFormFieldModule,
     MatInputModule,
